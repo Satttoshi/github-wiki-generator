@@ -9,6 +9,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function openaiApiRequest (prompt: string) {
+    const testString = "OOP in Java"
     const completion = await openai.createChatCompletion({
 
         model: 'gpt-3.5-turbo',
@@ -17,17 +18,59 @@ async function openaiApiRequest (prompt: string) {
                 role: 'system',
                 content:
                     'Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. ' +
-                    'Du hast bereits eine Überschrift und eine Einleitung geschrieben. ' +
-                    'Jetzt möchtest du den Hauptteil schreiben. ' +
-                    'Der Hauptteil sollte die wichtigsten Informationen zum Thema enthalten. ' +
                     'Einfach zu verstehen, kurz und prägnant.' +
-                    'Du verfasst deinen Text auf Deutsch!' +
-                    'Du MUSST antworten im MARKDOWN Format welches auf GitHub funktioniert. ' +
-                    'Du fängst bei h2 an und nicht bei h1, also `##` und NICHT `#` '
+                    `Die Thematik betrifft ${testString} `  +
+                    'Schreibe mir im GitHub Markdown eine Page, die ich in mein Github-Wiki einbinden kann. '
             },
             {
                 role: 'user',
-                content: prompt
+                content: `Mein erster Punkt über den du schreiben sollst ist "${prompt}"` +
+                    "Hier ist ein Beispiel, wie deine Antwort strukturell aufgebaut sein könnte: \n" +
+                    "# Polymorphismus in OOP\n" +
+                    "\n" +
+                    "Polymorphismus ist ein weiteres grundlegendes Konzept der objektorientierten Programmierung. Es ermöglicht Objekten, unterschiedliche Formen anzunehmen und dennoch die gleichen Operationen auszuführen.\n" +
+                    "\n" +
+                    "## Anwendung\n" +
+                    "\n" +
+                    "```java\n" +
+                    "public abstract class Tier {\n" +
+                    "    public abstract void lautMachen();\n" +
+                    "}\n" +
+                    "\n" +
+                    "public class Hund extends Tier {\n" +
+                    "    @Override\n" +
+                    "    public void lautMachen() {\n" +
+                    "        System.out.println(\"Wuff!\");\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "public class Katze extends Tier {\n" +
+                    "    @Override\n" +
+                    "    public void lautMachen() {\n" +
+                    "        System.out.println(\"Miau!\");\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "public class Main {\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        Tier hund = new Hund();\n" +
+                    "        Tier katze = new Katze();\n" +
+                    "\n" +
+                    "        hund.lautMachen(); // Gibt \"Wuff!\" aus\n" +
+                    "        katze.lautMachen(); // Gibt \"Miau!\" aus\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "```\n" +
+                    "In diesem Beispiel sind `Hund` und `Katze` beides Unterklassen von `Tier` und sie überschreiben die Methode `lautMachen()`. Obwohl sowohl `hund` als auch `katze` als Objekte der Klasse `Tier` deklariert sind, führen sie unterschiedliche Implementierungen der Methode `lautMachen()` aus.\n" +
+                    "\n" +
+                    "## Nutzen\n" +
+                    "\n" +
+                    "Polymorphismus ermöglicht eine flexiblere und modularere Programmstruktur:\n" +
+                    "\n" +
+                    "- **Code-Wiederverwendung**: Methoden können in einer allgemeinen Form in der Superklasse definiert und dann in den Unterklassen spezifisch implementiert werden.\n" +
+                    "- **Erweiterbarkeit**: Neue Klassen können einfach hinzugefügt werden, ohne den bestehenden Code zu ändern.\n" +
+                    "\n" +
+                    "Polymorphismus trägt zur Erstellung von sauberem, wiederverwendbarem und gut organisierem Code bei, was die Wartbarkeit und Skalierbarkeit von Software verbessert."
             }
         ]
     });
