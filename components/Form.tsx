@@ -1,9 +1,12 @@
 
-
-
-
 export default function Form(){
 
+
+    async function fetchGenerator(){
+        const response = await fetch('/api/generator');
+        const data = await response.json();
+        return data;
+    }
 
     // @ts-ignore
     function handleSubmit(event){

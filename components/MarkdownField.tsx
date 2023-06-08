@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 
+
 interface MarkdownFieldProps {
     markdownContent: string;
 }
 
-function MarkdownField({ markdownContent }: MarkdownFieldProps): JSX.Element {
+function MarkdownField({ markdownContent }: MarkdownFieldProps) {
     const [content, setContent] = useState<string>(markdownContent);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
