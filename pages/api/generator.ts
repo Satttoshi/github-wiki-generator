@@ -8,35 +8,53 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function openaiApiRequest (message: any){
-    const completion = await openai.createCompletion({
-        model: "gpt-3.5-turbo",
-        prompt: message,
+async function openaiApiRequest (prompt: string) {
+    const completion = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: [
+            {
+                role: 'system',
+                content: 'You are a helpful assistant'
+            },
+            {
+                role: 'user',
+                content: prompt
+            }
+        ]
     });
-
-    const completionText = completion.data.choices[0].text;
-    console.log(completionText);
-
-    return completionText;
+    // @ts-ignore
+    return completion.data.choices[0].message.content;
 }
-
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
-    if (request.method === 'POST') {
-        const userPrompt: string = request.body.input;
+    if (!configuration.apiKey) {
+        response.status(500).json({
+            error: {
+                message: "OpenAI API key not configured, please follow instructions in README.md",
+            }
+        });
+        return;
+    }
 
-        if (!userPrompt) {
-            return response.status(400).json({ error: 'Missing prompt in request body.' });
-        }
+    try {
+        console.log(request.body.message);
+        const completion = await openaiApiRequest(request.body.message);
+        console.log(completion);
+        response.status(200).json({ result: completion });
 
-        try {
-            const message = await openaiApiRequest(userPrompt);
-            console.log(message);
-            response.status(200).json({ message });
-        } catch (error) {
-            response.status(500).json({ error: 'Error generating message.' });
+    } catch(error: any) {
+
+        if (error.response) {
+            console.error(error.response.status, error.response.data);
+            response.status(error.response.status).json(error.response.data);
+        } else {
+            console.error(`Error with OpenAI API request: ${error.message}`);
+            response.status(500).json({
+                error: {
+                    message: 'An error occurred during your request.',
+                }
+            });
         }
-    } else {
-        response.status(405).json({ error: 'Method not allowed. Please use POST method.' });
     }
 }
+

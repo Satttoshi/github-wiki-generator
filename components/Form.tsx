@@ -12,17 +12,17 @@ export default function Form(){
             },
             body: JSON.stringify({input: formInput})
         });
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
 
     // @ts-ignore
-    function handleSubmit(event){
+    async function handleSubmit(event){
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+        const message = await fetchGenerator(data.input);
 
-        fetchGenerator(data.input).then(data => console.log(data));
+        console.log("message: " + JSON.stringify(message));
     }
 
     return (<>
