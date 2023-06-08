@@ -2,16 +2,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Configuration, OpenAIApi } from 'openai';
 
 type Data = {
-    message: string;
+    error?: string;
+    message?: string;
 };
 
-const openai = new OpenAIApi(
-    new Configuration({
-        apiKey: process.env.OPENAI_API_KEY,
-    })
-);
+const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
-let GPT35Turbo = async (message: any) =>{
+const openai = new OpenAIApi(configuration);
+
+async function openaiApiRequest (message: any){
     const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: message,
@@ -27,7 +28,7 @@ let GPT35Turbo = async (message: any) =>{
 
 
 
-export default async function handler(request: NextApiRequest, response: NextApiResponse<Data>) {
+export default async function handler(request: NextApiRequest, response: NextApiResponse) {
     if (request.method === 'POST') {
         const userPrompt: string = request.body.input;
 
@@ -36,7 +37,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
         }
 
         try {
-            const message = await GPT35Turbo(userPrompt);
+            const message = await openaiApiRequest(userPrompt);
             console.log(message);
             response.status(200).json({ message });
         } catch (error) {
