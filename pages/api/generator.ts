@@ -11,13 +11,13 @@ const openai = new OpenAIApi(
     })
 );
 
-async function generateGPT35TurboMessage(messages: any){
+let GPT35Turbo = async (message: any) =>{
     const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
-        messages: messages,
+        messages: message,
     });
 
-    const completion_text = completion.data.choices[0].message.content;
+    const completion_text = completion.data.choices[0];
     console.log(completion_text);
 
     return "test String return of function";
@@ -36,7 +36,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
         }
 
         try {
-            const message = await generateGPT35TurboMessage(userPrompt);
+            const message = await GPT35Turbo(userPrompt);
             console.log(message);
             response.status(200).json({ message });
         } catch (error) {
