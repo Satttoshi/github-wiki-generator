@@ -10,11 +10,20 @@ const openai = new OpenAIApi(configuration);
 
 async function openaiApiRequest (prompt: string) {
     const completion = await openai.createChatCompletion({
+
         model: 'gpt-3.5-turbo',
         messages: [
             {
                 role: 'system',
-                content: 'You are a helpful assistant'
+                content:
+                    'Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. ' +
+                    'Du hast bereits eine Überschrift und eine Einleitung geschrieben. ' +
+                    'Jetzt möchtest du den Hauptteil schreiben. ' +
+                    'Der Hauptteil sollte die wichtigsten Informationen zum Thema enthalten. ' +
+                    'Einfach zu verstehen, kurz und prägnant.' +
+                    'Du verfasst deinen Text auf Deutsch!' +
+                    'Du MUSST antworten im MARKDOWN Format welches auf GitHub funktioniert. ' +
+                    'Du fängst bei h2 an und nicht bei h1, also `##` und NICHT `#` '
             },
             {
                 role: 'user',
@@ -37,8 +46,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
     }
 
     try {
-        console.log(request.body.message);
-        const completion = await openaiApiRequest(request.body.message);
+        const completion = await openaiApiRequest(request.body.input);
         console.log(completion);
         response.status(200).json({ result: completion });
 

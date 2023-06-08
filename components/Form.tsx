@@ -5,6 +5,7 @@ export default function Form(){
 
 
     async function fetchGenerator(formInput: any){
+        console.log(formInput);
         const response = await fetch('/api/generator', {
             method: 'POST',
             headers: {
@@ -20,9 +21,10 @@ export default function Form(){
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+
         const message = await fetchGenerator(data.input);
 
-        console.log("message: " + JSON.stringify(message));
+        console.log("message: " + (message));
     }
 
     return (<>
