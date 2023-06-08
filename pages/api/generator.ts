@@ -1,10 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Configuration, OpenAIApi } from 'openai';
 
-type Data = {
-    error?: string;
-    message?: string;
-};
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -13,19 +9,16 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function openaiApiRequest (message: any){
-    const completion = await openai.createChatCompletion({
+    const completion = await openai.createCompletion({
         model: "gpt-3.5-turbo",
-        messages: message,
+        prompt: message,
     });
 
-    const completion_text = completion.data.choices[0];
-    console.log(completion_text);
+    const completionText = completion.data.choices[0].text;
+    console.log(completionText);
 
-    return "test String return of function";
+    return completionText;
 }
-
-
-
 
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
