@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-
+import useStore from '../zustand/store';
 
 export default function Form(){
-
+    const setMessage = useStore(state => state.setMessage);
 
     async function fetchGenerator(formInput: any){
         console.log(formInput);
@@ -25,6 +25,7 @@ export default function Form(){
         const message = await fetchGenerator(data.input);
 
         console.log("message: " + (message));
+        setMessage(message);
     }
 
     return (<>

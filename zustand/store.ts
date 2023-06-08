@@ -5,3 +5,5 @@ const useStore = createStore((set) => ({
 
     setMessage: (message: string) => set({message}),
 }))
+
+export default useStore;
