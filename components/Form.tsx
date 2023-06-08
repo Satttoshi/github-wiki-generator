@@ -30,8 +30,6 @@ export default function Form(){
         <form onSubmit={handleSubmit} aria-label="Form Input">
             <StyledFieldset>
                 <legend>Legend</legend>
-                <label htmlFor="openaiKey">Openai Api Key</label>
-                <input id="OpenaiKey" name="OpenaiKey" type="text" />
                 <label htmlFor="input">Input</label>
                 <input id="input" name="input" type="text" />
             </StyledFieldset>

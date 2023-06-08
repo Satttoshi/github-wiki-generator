@@ -1,45 +1,34 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { Configuration, OpenAIApi } from 'openai'
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { Configuration, OpenAIApi } from 'openai';
 
 type Data = {
-  name: string
-}
+    message: string;
+};
 
 const openai = new OpenAIApi(
     new Configuration({
-      apiKey: process.env.OPENAI_API_KEY,
+        apiKey: process.env.OPENAI_API_KEY,
     })
 );
 
-async function GPT35Turbo(prompt: any) {
-    const gptResponse = await openai.createChatCompletion(
-        {
-            model: "gpt-3.5-turbo",
-            messages: prompt,
-            max_tokens: 4086,
+
+
+export default async function handler(request: NextApiRequest, response: NextApiResponse<Data>) {
+    if (request.method === 'POST') {
+        const userPrompt: string = request.body.input;
+
+        if (!userPrompt) {
+            return response.status(400).json({ error: 'Missing prompt in request body.' });
         }
-    );
-}
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-
-  if (req.method === 'POST') {
-    const prompt = [
-        {
-            role: "system",
-            content: "lol",
-        },
-        {
-            role: "user",
-            content: "haha",
+        try {
+            const message = await generateGPT35TurboMessage(userPrompt);
+            console.log(message);
+            response.status(200).json({ message });
+        } catch (error) {
+            response.status(500).json({ error: 'Error generating message.' });
         }
-    ];
-
-    return res.status(200).json( req.body )
-  }
-
+    } else {
+        response.status(405).json({ error: 'Method not allowed. Please use POST method.' });
+    }
 }
