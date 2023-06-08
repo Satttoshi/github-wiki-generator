@@ -12,7 +12,7 @@ export default function handler(
 
   if (req.method === 'POST') {
 
-    return res.status(200).json({ name: req.body })
+    return res.status(200).json( req.body )
   }
 
 }
