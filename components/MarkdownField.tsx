@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
 
 
 interface MarkdownFieldProps {
     markdownContent: string;
 }
 
-function MarkdownField({ markdownContent }: MarkdownFieldProps) {
+export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
     const [content, setContent] = useState<string>(markdownContent);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -27,10 +28,15 @@ function MarkdownField({ markdownContent }: MarkdownFieldProps) {
 
     return (
         <div>
-            <textarea ref={textAreaRef} value={content} onChange={handleContentChange} />
+            <StyledTextArea ref={textAreaRef} value={content} onChange={handleContentChange} />
             <button onClick={copyToClipboard}>Copy to clipboard</button>
         </div>
     );
 }
 
-export default MarkdownField;
+const StyledTextArea = styled.textarea`
+    width: 600px;
+    height: 300px;
+`;
+
+
