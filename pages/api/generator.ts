@@ -11,6 +11,17 @@ const openai = new OpenAIApi(
     })
 );
 
+async function generateGPT35TurboMessage(messages: any){
+    const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: messages,
+    });
+
+    return "test String return of function";
+}
+
+
+
 
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse<Data>) {
