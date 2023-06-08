@@ -1,24 +1,28 @@
-import {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 
 interface MarkdownFieldProps {
     markdownContent: string;
 }
 
-export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
+function MarkdownField({ markdownContent }: MarkdownFieldProps): JSX.Element {
     const [content, setContent] = useState<string>(markdownContent);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const copyToClipboard = (e: React.MouseEvent) => {
+    async function copyToClipboard(e: React.MouseEvent) {
         e.preventDefault();
         if (textAreaRef.current) {
-            textAreaRef.current.select();
-            document.execCommand('copy');
+            try {
+                await navigator.clipboard.writeText(content);
+                console.log('Copied to clipboard');
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
         }
-    };
+    }
 
-    const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setContent(e.target.value);
-    };
+    }
 
     return (
         <div>
@@ -26,4 +30,6 @@ export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
             <button onClick={copyToClipboard}>Copy to clipboard</button>
         </div>
     );
-};
+}
+
+export default MarkdownField;
