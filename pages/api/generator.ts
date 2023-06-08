@@ -17,6 +17,9 @@ async function generateGPT35TurboMessage(messages: any){
         messages: messages,
     });
 
+    const completion_text = completion.data.choices[0].message.content;
+    console.log(completion_text);
+
     return "test String return of function";
 }
 
