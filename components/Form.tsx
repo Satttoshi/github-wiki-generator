@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-
+import useStore from '../zustand/store';
 
 export default function Form(){
-
+    const setMessage = useStore(state => state.setMessage);
 
     async function fetchGenerator(formInput: any){
-        console.log(formInput);
+        console.log("Fetch starting with topic: " + formInput);
         const response = await fetch('/api/generator', {
             method: 'POST',
             headers: {
@@ -24,11 +24,12 @@ export default function Form(){
 
         const message = await fetchGenerator(data.input);
 
-        console.log("message: " + (message));
+        console.log("message: " + message.result);
+        setMessage(message.result);
     }
 
     return (<>
-        <h1>Form</h1>
+        <h2>Java Programmierung</h2>
         <form onSubmit={handleSubmit} aria-label="Form Input">
             <StyledFieldset>
                 <legend>Legend</legend>
