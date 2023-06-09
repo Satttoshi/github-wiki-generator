@@ -5,7 +5,7 @@ export default function Form(){
     const setMessage = useStore(state => state.setMessage);
 
     async function fetchGenerator(formInput: any){
-        console.log(formInput);
+        console.log("Fetch starting with topic: " + formInput);
         const response = await fetch('/api/generator', {
             method: 'POST',
             headers: {
@@ -24,8 +24,8 @@ export default function Form(){
 
         const message = await fetchGenerator(data.input);
 
-        console.log("message: " + (JSON.parse(message)));
-        setMessage(message);
+        console.log("message: " + message.result);
+        setMessage(message.result);
     }
 
     return (<>
