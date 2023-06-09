@@ -24,7 +24,7 @@ export default function Form(){
 
         const message = await fetchGenerator(data.input);
 
-        console.log("message: " + (message));
+        console.log("message: " + (JSON.parse(message)));
         setMessage(message);
     }
 

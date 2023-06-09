@@ -5,7 +5,7 @@ interface StoreState {
     setMessage: (message: string) => void;
 }
 
-const useStore = createStore((set) => ({
+const useStore = createStore<StoreState>((set) => ({
     message: "",
 
     setMessage: (message: string) => set({message}),
