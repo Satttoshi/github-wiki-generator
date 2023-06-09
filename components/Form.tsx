@@ -29,7 +29,7 @@ export default function Form(){
     }
 
     return (<>
-        <h1>Form</h1>
+        <h2>Java Programmierung</h2>
         <form onSubmit={handleSubmit} aria-label="Form Input">
             <StyledFieldset>
                 <legend>Legend</legend>
