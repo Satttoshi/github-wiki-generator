@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import useStore from '../zustand/store';
 
 
 interface MarkdownFieldProps {
@@ -7,7 +8,8 @@ interface MarkdownFieldProps {
 }
 
 export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
-    const [content, setContent] = useState<string>(markdownContent);
+    const content = useStore(state => state.message);
+    const setContent = useStore(state => state.setMessage);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     async function copyToClipboard(e: React.MouseEvent) {
