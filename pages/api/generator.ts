@@ -8,9 +8,9 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function openaiApiRequest (thema: string, subthema: string) {
+async function openaiApiRequest (thema: string, subThema: string) {
 
-    console.log("Fetch starting with: \nThema: " + thema + "\nSub Thema: " + subthema);
+    console.log("Fetch starting with: \nThema: " + thema + "\nSub Thema: " + subThema);
 
     const completion = await openai.createChatCompletion({
 
@@ -26,7 +26,7 @@ async function openaiApiRequest (thema: string, subthema: string) {
             },
             {
                 role: 'user',
-                content: `Mein erster Punkt über den du schreiben sollst ist "${subthema}"` +
+                content: `Mein erster Punkt über den du schreiben sollst ist "${subThema}"` +
                     "Deine Headerstruktur sollte mit h2 anstelle von h1 beginnen!" +
                     "Hier ist ein Beispiel, wie deine Antwort strukturell aufgebaut sein könnte: \n" +
                     "# Polymorphismus in OOP\n" +
@@ -92,7 +92,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
     }
 
     try {
-        const completion = await openaiApiRequest(request.body.thema, request.body.subthema);
+        const completion = await openaiApiRequest(request.body.thema, request.body.subThema);
         console.log(completion);
         response.status(200).json({ result: completion });
 
