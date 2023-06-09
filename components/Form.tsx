@@ -20,11 +20,7 @@ export default function Form(){
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
-        console.log(data);
-
         const message = await fetchGenerator(data.thema, data.subThema);
-
-        console.log("message: " + message.result);
         setMessage(message.result);
     }
 
