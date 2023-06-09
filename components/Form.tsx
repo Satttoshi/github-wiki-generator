@@ -3,8 +3,10 @@ import useStore from '../zustand/store';
 
 export default function Form(){
     const setMessage = useStore(state => state.setMessage);
+    const setIsFetching = useStore(state => state.setIsFetching);
 
     async function fetchGenerator(thema: any, subThema: any){
+        setIsFetching(true);
         const response = await fetch('/api/generator', {
             method: 'POST',
             headers: {
@@ -12,6 +14,7 @@ export default function Form(){
             },
             body: JSON.stringify({thema: thema, subThema: subThema})
         });
+        setIsFetching(false);
         return await response.json();
     }
 
