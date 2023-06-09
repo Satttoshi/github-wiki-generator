@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration);
 
 async function openaiApiRequest (thema: string, subthema: string) {
 
-    console.log("Fetch starting with: /nThema: " + thema + "/nSub Thema: " + subthema);
+    console.log("Fetch starting with: \nThema: " + thema + "\nSub Thema: " + subthema);
 
     const completion = await openai.createChatCompletion({
 
