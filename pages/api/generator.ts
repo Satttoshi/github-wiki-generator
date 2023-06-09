@@ -8,8 +8,10 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function openaiApiRequest (prompt: string) {
-    const testString = "Java Programmierung"
+async function openaiApiRequest (thema: string, subThema: string) {
+
+    console.log("Fetch starting with: \nThema: " + thema + "\nSub Thema: " + subThema);
+
     const completion = await openai.createChatCompletion({
 
         model: 'gpt-3.5-turbo',
@@ -17,14 +19,15 @@ async function openaiApiRequest (prompt: string) {
             {
                 role: 'system',
                 content:
-                    'Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. ' +
-                    'Einfach zu verstehen, kurz und prägnant.' +
-                    `Die Thematik betrifft ${testString} `  +
-                    'Schreibe mir im GitHub Markdown eine Page, die ich in mein Github-Wiki einbinden kann. '
+                    "Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. " +
+                    "Einfach zu verstehen, kurz und prägnant." +
+                    `Die Ober-Thematik betrifft ${thema} `  +
+                    "Schreibe mir im GitHub Markdown eine Page, die ich in mein Github-Wiki einbinden kann. "
             },
             {
                 role: 'user',
-                content: `Mein erster Punkt über den du schreiben sollst ist "${prompt}"` +
+                content: `Mein erster Punkt über den du schreiben sollst ist "${subThema}"` +
+                    "Deine Headerstruktur sollte mit h2 anstelle von h1 beginnen!" +
                     "Hier ist ein Beispiel, wie deine Antwort strukturell aufgebaut sein könnte: \n" +
                     "# Polymorphismus in OOP\n" +
                     "\n" +
@@ -89,7 +92,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
     }
 
     try {
-        const completion = await openaiApiRequest(request.body.input);
+        const completion = await openaiApiRequest(request.body.thema, request.body.subThema);
         console.log(completion);
         response.status(200).json({ result: completion });
 

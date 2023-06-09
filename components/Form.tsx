@@ -3,16 +3,18 @@ import useStore from '../zustand/store';
 
 export default function Form(){
     const setMessage = useStore(state => state.setMessage);
+    const setIsFetching = useStore(state => state.setIsFetching);
 
-    async function fetchGenerator(formInput: any){
-        console.log("Fetch starting with topic: " + formInput);
+    async function fetchGenerator(thema: any, subThema: any){
+        setIsFetching(true);
         const response = await fetch('/api/generator', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({input: formInput})
+            body: JSON.stringify({thema: thema, subThema: subThema})
         });
+        setIsFetching(false);
         return await response.json();
     }
 
@@ -21,10 +23,7 @@ export default function Form(){
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
-
-        const message = await fetchGenerator(data.input);
-
-        console.log("message: " + message.result);
+        const message = await fetchGenerator(data.thema, data.subThema);
         setMessage(message.result);
     }
 
@@ -33,8 +32,10 @@ export default function Form(){
         <form onSubmit={handleSubmit} aria-label="Form Input">
             <StyledFieldset>
                 <legend>Legend</legend>
-                <label htmlFor="input">Input</label>
-                <input id="input" name="input" type="text" />
+                <label htmlFor="maintopic">Haupt Thema:</label>
+                <input id="input" name="thema" type="text" />
+                <label htmlFor="subtopic">Thema:</label>
+                <input id="input" name="subThema" type="text" />
             </StyledFieldset>
             <button type="submit">Submit</button>
         </form>
