@@ -33,6 +33,7 @@ export default createGlobalStyle`
 body {
     color: var(--1);
     background-color: var(--4);
+    font-family: var(--font1);
 }
 
 `;
