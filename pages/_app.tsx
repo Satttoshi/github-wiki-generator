@@ -1,5 +1,5 @@
-import type { AppProps } from 'next/app'
-import GlobalStyle from '../styles';
+import type { AppProps } from "next/app";
+import GlobalStyle from "../styles";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -10,4 +10,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp
+export default MyApp;
