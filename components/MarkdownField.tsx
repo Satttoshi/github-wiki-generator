@@ -1,15 +1,14 @@
-import React, { useRef, useState } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 import useStore from "../zustand/store";
+import * as React from "react";
+import { Button } from "@mui/material";
 
-interface MarkdownFieldProps {
-  markdownContent: string;
-}
-
-export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
+export default function MarkdownField() {
   const content = useStore((state) => state.message);
   const setContent = useStore((state) => state.setMessage);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const isFetching = useStore((state) => state.isFetching);
 
   async function copyToClipboard(e: React.MouseEvent) {
     e.preventDefault();
@@ -29,7 +28,25 @@ export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
 
   return (
     <StyledMarkdownField>
-      <button onClick={copyToClipboard}>Copy to clipboard</button>
+      {isFetching ? (
+        <Button
+          variant="contained"
+          style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
+          onClick={copyToClipboard}
+          disabled
+        >
+          Generating wiki article, please wait ...
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
+          onClick={copyToClipboard}
+        >
+          Copy to clipboard
+        </Button>
+      )}
+
       <StyledTextArea
         ref={textAreaRef}
         value={content}
@@ -42,11 +59,11 @@ export default function MarkdownField({ markdownContent }: MarkdownFieldProps) {
 const StyledMarkdownField = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledTextArea = styled.textarea`
-  height: 100%;
+  height: 100vh;
+  background-color: var(--2);
 `;

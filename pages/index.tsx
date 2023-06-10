@@ -6,14 +6,12 @@ import useStore from "../zustand/store";
 import styled from "styled-components";
 
 const Home: NextPage = () => {
-  const isFetching = useStore((state) => state.isFetching);
   return (
     <>
-      <h1>Wiki Page Generator</h1>
       <StyledMain>
+        <h1>Wiki Page Generator</h1>
         <Form />
-        {isFetching && <p>Loading...</p>}
-        <MarkdownField markdownContent="Hello Worldddd" />
+        <MarkdownField />
       </StyledMain>
     </>
   );
@@ -21,12 +19,11 @@ const Home: NextPage = () => {
 
 const StyledMain = styled.main`
   width: 400px;
-  height: 600px;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 `;
 
 export default Home;
