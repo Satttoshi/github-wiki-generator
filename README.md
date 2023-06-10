@@ -29,9 +29,10 @@ OPENAI_API_KEY="InsertYourApiKeyHere"
 
 4. After setting up the `.env.local` file, open the console and navigate to the root of the cloned repository.
 
-5. To run the tool, type the following command in the console:
+5. To run the tool, type the following commands in the console:
 
 ```bash
+npm i
 npm run dev
 ```
 
