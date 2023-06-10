@@ -12,3 +12,20 @@ A
 :
 
 .env.local,1\f\1fa30fea3e9ae270a3c38a6113a3689d8987d108
+>
+pages/_app.tsx,5\5\550528cc072fa7d76d123e2f4303d4ab39daa8e8
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+F
+pages/api/generator.ts,1\0\106a22142f5572deb3557beeffae7b2943787d36
+C
+components/Form.tsx,5\5\556a08033610205a889ea4b7dde4564d81dee203
+@
+zustand/store.ts,6\8\685ad4d05f3f77489394112a06595609fca03e5b
+L
+components/MarkdownField.tsx,3\6\3698ee7a91597647e3727903cbe0877f8053f596
+?
+pages/index.tsx,b\3\b3357635c26d1b52053382ce7e8a8640d31fedc8
