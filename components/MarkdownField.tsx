@@ -41,14 +41,15 @@ export default function MarkdownField() {
           ref={textAreaRef}
           value="Generating..."
           onChange={handleContentChange}
-          spellCheck="false"
+          spellCheck={false}
+          readOnly={true}
         />
       ) : (
         <StyledTextArea
           ref={textAreaRef}
           value={content}
           onChange={handleContentChange}
-          spellCheck="false"
+          spellCheck={false}
         />
       )}
     </StyledMarkdownField>
