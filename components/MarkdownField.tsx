@@ -28,30 +28,29 @@ export default function MarkdownField() {
 
   return (
     <StyledMarkdownField>
+      <Button
+        variant="contained"
+        style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
+        onClick={copyToClipboard}
+        disabled={isFetching}
+      >
+        Copy to clipboard
+      </Button>
       {isFetching ? (
-        <Button
-          variant="contained"
-          style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
-          onClick={copyToClipboard}
-          disabled
-        >
-          Generating wiki article, please wait ...
-        </Button>
+        <StyledTextArea
+          ref={textAreaRef}
+          value="Loading..."
+          onChange={handleContentChange}
+          spellCheck="false"
+        />
       ) : (
-        <Button
-          variant="contained"
-          style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
-          onClick={copyToClipboard}
-        >
-          Copy to clipboard
-        </Button>
+        <StyledTextArea
+          ref={textAreaRef}
+          value={content}
+          onChange={handleContentChange}
+          spellCheck="false"
+        />
       )}
-
-      <StyledTextArea
-        ref={textAreaRef}
-        value={content}
-        onChange={handleContentChange}
-      />
     </StyledMarkdownField>
   );
 }
@@ -64,6 +63,6 @@ const StyledMarkdownField = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
-  height: 100vh;
+  height: 400px;
   background-color: var(--2);
 `;
