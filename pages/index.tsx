@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <>
       <StyledMain>
-        <h1>Wiki Page Generator</h1>
+        <Styledh1>Github Wiki Generator</Styledh1>
         <Form />
         <MarkdownField />
       </StyledMain>
@@ -17,13 +17,17 @@ const Home: NextPage = () => {
   );
 };
 
+const Styledh1 = styled.h1`
+  margin-bottom: 0;
+`;
+
 const StyledMain = styled.main`
   width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 export default Home;

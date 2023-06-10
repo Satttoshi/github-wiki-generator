@@ -31,9 +31,13 @@ export default createGlobalStyle`
 }
   
 body {
+    margin-left: 1rem;
+    margin-right: 1rem;
     color: var(--1);
     background-color: var(--4);
     font-family: var(--font1);
+    display: flex;
+    justify-content: center;
 }
 
 `;

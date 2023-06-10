@@ -52,14 +52,15 @@ export default function Form() {
             defaultValue="Interfaces"
           />
         </StyledFieldset>
-        <Button
+        <LoadingButton
+          loading={isFetching}
           variant="contained"
           style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
           type="submit"
           disabled={isFetching}
         >
           Submit
-        </Button>
+        </LoadingButton>
       </StyledForm>
     </>
   );
