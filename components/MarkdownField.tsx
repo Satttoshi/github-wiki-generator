@@ -39,7 +39,7 @@ export default function MarkdownField() {
       {isFetching ? (
         <StyledTextArea
           ref={textAreaRef}
-          value="Loading..."
+          value="Generating..."
           onChange={handleContentChange}
           spellCheck="false"
         />
@@ -65,4 +65,5 @@ const StyledMarkdownField = styled.div`
 const StyledTextArea = styled.textarea`
   height: 400px;
   background-color: var(--2);
+  resize: none;
 `;
