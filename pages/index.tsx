@@ -13,7 +13,7 @@ const Home: NextPage = () => {
           Github Wiki Generator
         </Typography>
       </Grid>
-      <Grid item xs={12} lg={6} sx={{border: "3px solid red"}}>
+      <Grid item xs={12} lg={6}>
         <Form />
       </Grid>
       <Grid item xs={12} lg={6}>
