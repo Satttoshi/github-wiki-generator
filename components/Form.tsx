@@ -1,83 +1,51 @@
-import styled from "styled-components";
-import useStore from "../zustand/store";
-import * as React from "react";
-import { Button, Input } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useFetch } from "../hooks/useFetch";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 
+import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 export default function Form() {
-  const setMessage = useStore((state) => state.setMessage);
-  const isFetching = useStore((state) => state.isFetching);
-  const setIsFetching = useStore((state) => state.setIsFetching);
+  const createWikiEntry = useFetch((state) => state.fetch);
+  const { isLoading } = useFetch((state) => state.wikiEntry);
 
-  async function fetchGenerator(thema: any, subThema: any) {
-    setIsFetching(true);
-    const response = await fetch("/api/generator", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ thema: thema, subThema: subThema }),
-    });
-    setIsFetching(false);
-    return await response.json();
-  }
-
-  // @ts-ignore
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-    const message = await fetchGenerator(data.thema, data.subThema);
-    setMessage(message.result);
+    createWikiEntry("wikiEntry", data);
   }
 
   return (
     <>
-      <StyledForm onSubmit={handleSubmit} aria-label="Form Input">
-        <StyledFieldset>
-          <label htmlFor="maintopic">Haupt Thema:</label>
-          <Input
-            id="input"
-            style={{ background: "var(--2)" }}
-            name="thema"
-            type="text"
-            defaultValue="Java Programmierung"
-          />
-          <label htmlFor="subtopic">Thema:</label>
-          <Input
-            id="input"
-            style={{ background: "var(--2)" }}
-            name="subThema"
-            type="text"
-            defaultValue="Interfaces"
-          />
-        </StyledFieldset>
+      <Stack component="form" m={4} spacing={2} onSubmit={handleSubmit}>
+        <Typography variant="h6" component="h2">
+          <LibraryBooksIcon /> Which kind of Wiki Page you need?
+        </Typography>
+        <TextField
+          id="input"
+          name="thema"
+          label="Main Topic"
+          defaultValue="Java Programmierung"
+        />
+        <TextField
+          id="input"
+          name="subThema"
+          label="Sub Topic"
+          defaultValue="Interfaces"
+        />
+
         <LoadingButton
-          loading={isFetching}
+          loading={isLoading}
           variant="contained"
-          style={{ background: "var(--3)", fontFamily: "var(--font1)" }}
           type="submit"
-          disabled={isFetching}
+          disabled={isLoading}
+          startIcon={<PrecisionManufacturingIcon />}
         >
-          Submit
+          Generate Wiki Page
         </LoadingButton>
-      </StyledForm>
+      </Stack>
     </>
   );
 }
-
-const StyledForm = styled.form`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledFieldset = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  width: 300px;
-  border: 2px solid var(--3);
-  border-radius: 5px;
-  margin: 0;
-`;

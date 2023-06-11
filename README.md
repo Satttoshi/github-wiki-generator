@@ -4,44 +4,67 @@ This tool leverages the power of **GPT-3.5 Turbo** from **OpenAI** to generate W
 
 ![image](https://github.com/Satttoshi/github-wiki-generator/assets/109807794/92318352-e029-4eb8-9d78-b471dbfde7e6)
 
-
 ## Features
 
 - Generate Wiki articles based on main topic and subtopic
+- Edit and push directly into wiki
 - ### <span style="color:red">Output is currently only in german language!</span>
 - Utilizes OpenAI's GPT-3.5 Turbo model for content generation
-- Requires a local environment file (.env.local) for API key storage
+- Requires OpenAI API Key ( paid for gpt-3.5-turbo )
 - Currently works only in a local environment
 - Easy to run with just a few steps
 
-## Installation and Usage
+## Getting Started
 
-Before running the tool, make sure you have the OpenAI API key ready. It is needed for the application to fetch content from the GPT-3.5 Turbo model.
+### Add your OpenAI API key
 
-Follow the steps below to set up the tool:
+Create an account at https://platform.openai.com/signup and obtain your API key.
 
-1. Clone this repository to your local machine:
+Copy the `.env.local.example` file to `.env.local`:
 
-2. Inside the cloned repository, create a new file named `.env.local`. This file is crucial for the application to authenticate with OpenAI's API.
-
-3. Open `.env.local` and add the following line: Replace `<yourapikey>` with your actual OpenAI API key.
-
-```.env
-OPENAI_API_KEY="InsertYourApiKeyHere"
+```shell
+cp .env.local.example .env.local
 ```
 
-4. After setting up the `.env.local` file, open the console and navigate to the root of the cloned repository.
+Open the `.env.local` file and add your OpenAI API key:
 
-5. To run the tool, type the following commands in the console:
+```shell
+OPENAI_API_KEY=your_api_key_here
+```
+
+### Configure your GitHub repository
+
+Open the services/github/config.json file. You will see the following:
+
+```json
+{
+  "owner": "user-name",
+  "repo": "repo-name",
+  "ssh": true
+}
+```
+
+Replace "user-name" with your GitHub username, "repo-name" with the name of your repository. The "ssh" field should be set to true if you're using SSH or false if you're using HTTPS for cloning the repository.
+
+If you are using HTTPS you also need to configure the GITHUB_ACCESS_TOKEN
+
+```shell
+GH_ACCESS_TOKEN=your_access_token_here
+```
+
+### Do not forget to:
 
 ```bash
 npm i
+```
+
+### Run the development server:
+
+```bash
 npm run dev
 ```
 
-6. Go to your browser and visit [localhost:3000](localhost:3000)
-
-The GitHub Wiki Generator tool is now ready for use!
+---
 
 ## Note
 

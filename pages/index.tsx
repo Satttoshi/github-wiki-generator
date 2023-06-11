@@ -1,33 +1,29 @@
 import type { NextPage } from "next";
 import Form from "../components/Form";
-// @ts-ignore
-import MarkdownField from "../components/MarkdownField";
-import useStore from "../zustand/store";
-import styled from "styled-components";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import MarkDownOutput from "../components/MarkdownOutput";
+import WikiUpdater from "../components/WikiUpdater";
 
 const Home: NextPage = () => {
   return (
-    <>
-      <StyledMain>
-        <Styledh1>Github Wiki Generator</Styledh1>
+    <Grid container p={6}>
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h1" my={2} align="center">
+          Github Wiki Generator
+        </Typography>
+      </Grid>
+      <Grid item xs={12} lg={6}>
         <Form />
-        <MarkdownField />
-      </StyledMain>
-    </>
+      </Grid>
+      <Grid item xs={12} lg={6}>
+        <WikiUpdater />
+      </Grid>
+      <Grid item xs={12}>
+        <MarkDownOutput />
+      </Grid>
+    </Grid>
   );
 };
-
-const Styledh1 = styled.h1`
-  margin-bottom: 0;
-`;
-
-const StyledMain = styled.main`
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-`;
 
 export default Home;
