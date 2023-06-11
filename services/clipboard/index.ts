@@ -1,7 +1,7 @@
 export default function copyToClipBoard(text: string) {
   navigator.clipboard.writeText(text).then(
     () => {
-      alert(`copied markdown to the clipboard`);
+      console.log("Copied to clipboard successfully!");
     },
     (error) => {
       console.error(error);

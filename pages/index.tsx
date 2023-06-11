@@ -8,12 +8,12 @@ import WikiUpdater from "../components/WikiUpdater";
 const Home: NextPage = () => {
   return (
     <Grid container p={6}>
-      <Grid item xs={12}>
+      <Grid item xs={12} >
         <Typography variant="h4" component="h1" my={2} align="center">
           Github Wiki Generator
         </Typography>
       </Grid>
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} lg={6} sx={{border: "3px solid red"}}>
         <Form />
       </Grid>
       <Grid item xs={12} lg={6}>
