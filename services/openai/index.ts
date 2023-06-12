@@ -42,7 +42,7 @@ export default async function openaiApiRequest({
           )}) are insufficient, generate additional buzzwords relevant to ${topic} and ${subTopic}.
           TEMPLATE: 
           Summary of ${subTopic}, 
-          Table of Contents ( -[…](…) ), 
+          Table of Contents using heading links: -[…](#…) , 
           Detailed section for each buzzword with definition, relevance to ${topic} and ${subTopic}, 
           examples using code blocks where possible, 
           and conclusion.
