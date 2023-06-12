@@ -17,10 +17,10 @@ export default async function openaiApiRequest({
   topic,
   subTopic,
   buzzwords,
-  language = "english",
+  language,
 }: ApiRequest) {
   console.log(
-    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}`
+    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}  \nLanguage: ${language}`
   );
 
   const completion = await openai.createChatCompletion({

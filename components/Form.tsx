@@ -21,7 +21,6 @@ export default function Form() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-    console.log(data);
     createWikiEntry("wikiEntry", { ...data, buzzwords, language });
   }
 
