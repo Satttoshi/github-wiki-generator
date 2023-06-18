@@ -1,12 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import openaiApiRequest from "../../services/openai";
+import josh01 from "../../services/openai/prompt-styles/josh01";
+import doemser01 from "../../services/openai/prompt-styles/doemser01";
 
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
   try {
-    const completion = await openaiApiRequest(request.body);
+    let completion;
+
+    switch (request.body.promptStyle) {
+      case "josh01":
+        completion = await josh01(request.body);
+        break;
+      case "doemser01":
+        completion = await doemser01(request.body);
+        break;
+      default:
+        response.status(400).json({ error: "Invalid prompt style" });
+    }
+
     console.log(completion);
     response.status(200).json({ result: completion });
   } catch (error: any) {
