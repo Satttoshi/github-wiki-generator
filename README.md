@@ -9,9 +9,9 @@ Check out the examples within the [Wiki](https://github.com/Satttoshi/github-wik
 
 ## Features
 
-- Generate Wiki articles based on main topic and subtopic
+- Generate Wiki articles based on main topic, subtopic and buzzwords
 - Edit and push directly into wiki
-- ### <span style="color:red">Output is currently only in german language!</span>
+- Select Prompt Styles, for different article styles and languages
 - Utilizes OpenAI's GPT-3.5 Turbo model for content generation
 - Requires OpenAI API Key ( paid for gpt-3.5-turbo )
 - Currently works only in a local environment
