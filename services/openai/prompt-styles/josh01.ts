@@ -6,7 +6,7 @@ export default async function openaiApiRequest({
   buzzwords,
 }: ApiRequest) {
   console.log(
-    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}`
+    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and \nBuzzwords: ${buzzwords}`
   );
 
   const completion = await openai.createChatCompletion({
@@ -14,15 +14,25 @@ export default async function openaiApiRequest({
     messages: [
       {
         role: "system",
-        content: `Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. Einfach zu verstehen, kurz und prägnant. Die Ober-Thematik betrifft ${topic}. Schreibe mir im GitHub Markdown eine Page, die ich in mein Github-Wiki einbinden kann.`,
+        content: `Du bist ein Student, der einen Wikiartikel für ein Thema schreibt. 
+        Einfach zu verstehen, kurz und prägnant. Die Ober-Thematik betrifft ${topic}. 
+        Schreibe mir im GitHub Markdown eine Page, die ich in mein Github-Wiki einbinden kann.`,
       },
       {
         role: "user",
-        content: `Mein erster Punkt über den du schreiben sollst ist "${subTopic}". Deine Headerstruktur sollte mit h2 anstelle von h1 beginnen! Hier ist ein Beispiel, wie deine Antwort strukturell aufgebaut sein könnte:
+        content: `Mein erster Punkt über den du schreiben sollst ist "${subTopic}". 
+        Deine Headerstruktur sollte mit h2 anstelle von h1 beginnen! Versuche folgende Buzzwords zu verwenden, falls eine Relevanz besteht: 
+        <(${buzzwords.join(
+          ", "
+        )})>, wenn die Spitzen Klammern im vorherigen Satz leer waren, dann gibt es keine Buzzwords.
+        Hier ist ein Beispiel, 
+        wie deine Antwort strukturell aufgebaut sein könnte:
 
+<BEISPIEL START>
 ## Polymorphismus in OOP
 
-Polymorphismus ist ein weiteres grundlegendes Konzept der objektorientierten Programmierung. Es ermöglicht Objekten, unterschiedliche Formen anzunehmen und dennoch die gleichen Operationen auszuführen.
+Polymorphismus ist ein weiteres grundlegendes Konzept der objektorientierten Programmierung. 
+Es ermöglicht Objekten, unterschiedliche Formen anzunehmen und dennoch die gleichen Operationen auszuführen.
 
 ### Anwendung
 
@@ -56,16 +66,23 @@ public class Main {
 }
 \`\`\`
 
-In diesem Beispiel sind \`Hund\` und \`Katze\` beides Unterklassen von \`Tier\` und sie überschreiben die Methode \`lautMachen()\`. Obwohl sowohl \`hund\` als auch \`katze\` als Objekte der Klasse \`Tier\` deklariert sind, führen sie unterschiedliche Implementierungen der Methode \`lautMachen()\` aus.
+In diesem Beispiel sind \`Hund\` und \`Katze\` beides Unterklassen von \`Tier\` 
+und sie überschreiben die Methode \`lautMachen()\`. Obwohl sowohl \`hund\` als 
+auch \`katze\` als Objekte der Klasse \`Tier\` deklariert sind, führen sie 
+unterschiedliche Implementierungen der Methode \`lautMachen()\` aus.
 
 ### Nutzen
 
 Polymorphismus ermöglicht eine flexiblere und modularere Programmstruktur:
 
-- **Code-Wiederverwendung**: Methoden können in einer allgemeinen Form in der Superklasse definiert und dann in den Unterklassen spezifisch implementiert werden.
-- **Erweiterbarkeit**: Neue Klassen können einfach hinzugefügt werden, ohne den bestehenden Code zu ändern.
+- **Code-Wiederverwendung**: Methoden können in einer allgemeinen Form in der Superklasse 
+definiert und dann in den Unterklassen spezifisch implementiert werden.
+- **Erweiterbarkeit**: Neue Klassen können einfach hinzugefügt werden, 
+ohne den bestehenden Code zu ändern.
 
-Polymorphismus trägt zur Erstellung von sauberem, wiederverwendbarem und gut organisierem Code bei, was die Wartbarkeit und Skalierbarkeit von Software verbessert.`,
+Polymorphismus trägt zur Erstellung von sauberem, wiederverwendbarem und gut organisierem Code bei, 
+was die Wartbarkeit und Skalierbarkeit von Software verbessert. 
+<BEISPIEL ENDE>`,
       },
     ],
   });

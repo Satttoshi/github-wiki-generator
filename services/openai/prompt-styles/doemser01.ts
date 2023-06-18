@@ -6,7 +6,7 @@ export default async function openaiApiRequest({
   buzzwords,
 }: ApiRequest) {
   console.log(
-    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}`
+    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and \nBuzzwords: ${buzzwords}`
   );
 
   const completion = await openai.createChatCompletion({
