@@ -4,10 +4,9 @@ export default async function openaiApiRequest({
   topic,
   subTopic,
   buzzwords,
-  language,
 }: ApiRequest) {
   console.log(
-    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}  \nLanguage: ${language}`
+    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}`
   );
 
   const completion = await openai.createChatCompletion({
@@ -21,11 +20,11 @@ export default async function openaiApiRequest({
         role: "user",
         content: `Mein erster Punkt über den du schreiben sollst ist "${subTopic}". Deine Headerstruktur sollte mit h2 anstelle von h1 beginnen! Hier ist ein Beispiel, wie deine Antwort strukturell aufgebaut sein könnte:
 
-# Polymorphismus in OOP
+## Polymorphismus in OOP
 
 Polymorphismus ist ein weiteres grundlegendes Konzept der objektorientierten Programmierung. Es ermöglicht Objekten, unterschiedliche Formen anzunehmen und dennoch die gleichen Operationen auszuführen.
 
-## Anwendung
+### Anwendung
 
 \`\`\`java
 public abstract class Tier {
@@ -59,7 +58,7 @@ public class Main {
 
 In diesem Beispiel sind \`Hund\` und \`Katze\` beides Unterklassen von \`Tier\` und sie überschreiben die Methode \`lautMachen()\`. Obwohl sowohl \`hund\` als auch \`katze\` als Objekte der Klasse \`Tier\` deklariert sind, führen sie unterschiedliche Implementierungen der Methode \`lautMachen()\` aus.
 
-## Nutzen
+### Nutzen
 
 Polymorphismus ermöglicht eine flexiblere und modularere Programmstruktur:
 

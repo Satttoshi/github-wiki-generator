@@ -5,15 +5,15 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function Form() {
   const [buzzwords, setBuzzwords] = useState<string[]>([]);
   const [language, setLanguage] = useState<string | null>("english");
+  const [promptStyle, setPromptStyle] = useState<string | null>("josh01");
   const createWikiEntry = useFetch((state) => state.fetch);
   const { isLoading } = useFetch((state) => state.wikiEntry);
 
@@ -21,7 +21,7 @@ export default function Form() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
-    createWikiEntry("wikiEntry", { ...data, buzzwords, language });
+    createWikiEntry("wikiEntry", { ...data, buzzwords, promptStyle });
   }
 
   const handleLanguage = (
@@ -30,6 +30,10 @@ export default function Form() {
   ) => {
     setLanguage(newLanguage);
   };
+
+  function handlePromptStyleChange(event: any) {
+    setPromptStyle(event.target.value);
+  }
 
   return (
     <>
@@ -78,10 +82,21 @@ export default function Form() {
             <TextField {...params} variant="filled" label="Buzzwords" />
           )}
         />
-        <ToggleButtonGroup value={language} exclusive onChange={handleLanguage}>
-          <ToggleButton value="english">English</ToggleButton>
-          <ToggleButton value="german">German</ToggleButton>
-        </ToggleButtonGroup>
+        <FormControl fullWidth>
+          <InputLabel htmlFor="prompt-style-switch">Prompt Style</InputLabel>
+          <Select
+            labelId="prompt-style-switch"
+            id="prompt-style-switch"
+            value={promptStyle}
+            label="Prompt Style"
+            onChange={handlePromptStyleChange}
+          >
+            <MenuItem value={"josh01"}>Josh - German Short Article</MenuItem>
+            <MenuItem value={"doemser01"}>
+              Doemser - English Detailed Article
+            </MenuItem>
+          </Select>
+        </FormControl>
         <LoadingButton
           loading={isLoading}
           variant="contained"

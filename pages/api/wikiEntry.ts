@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import openaiApiRequest from "../../services/openai";
+import openaiApiRequest from "../../services/openai/prompt-styles/doemser01";
 
 export default async function handler(
   request: NextApiRequest,

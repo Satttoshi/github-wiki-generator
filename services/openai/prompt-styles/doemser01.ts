@@ -4,10 +4,9 @@ export default async function openaiApiRequest({
   topic,
   subTopic,
   buzzwords,
-  language,
 }: ApiRequest) {
   console.log(
-    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}  \nLanguage: ${language}`
+    `Fetch starting with: \nTopic: ${topic} \nSub Topic: ${subTopic} and  \nBuzzwords: ${buzzwords}`
   );
 
   const completion = await openai.createChatCompletion({
@@ -16,7 +15,7 @@ export default async function openaiApiRequest({
       {
         role: "system",
         content: `You are a Software Development Student writing a GitHub Markdown page. 
-        The language for the article is ${language}. 
+        The language for the article is english. 
         Start with a level 2 heading (##). 
         Your task is to make sure that each section of the article is closely related to the topic (${topic}) and subtopic (${subTopic}). 
         All buzzwords must be relevant to the topic and thoroughly explained in relation to it.`,
