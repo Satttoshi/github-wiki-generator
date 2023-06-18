@@ -12,7 +12,6 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function Form() {
   const [buzzwords, setBuzzwords] = useState<string[]>([]);
-  const [language, setLanguage] = useState<string | null>("english");
   const [promptStyle, setPromptStyle] = useState<string | null>("josh01");
   const createWikiEntry = useFetch((state) => state.fetch);
   const { isLoading } = useFetch((state) => state.wikiEntry);
@@ -23,13 +22,6 @@ export default function Form() {
     const data = Object.fromEntries(formData);
     createWikiEntry("wikiEntry", { ...data, buzzwords, promptStyle });
   }
-
-  const handleLanguage = (
-    event: React.MouseEvent<HTMLElement>,
-    newLanguage: string | null
-  ) => {
-    setLanguage(newLanguage);
-  };
 
   function handlePromptStyleChange(event: any) {
     setPromptStyle(event.target.value);
