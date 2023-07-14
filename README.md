@@ -2,7 +2,7 @@
 
 This tool leverages the power of **GPT-3.5 Turbo** from **OpenAI** to generate Wiki articles for your GitHub repositories. It takes a main topic and a subtopic to generate an in-depth article in GitHub Markdown format.
 
-Check out the examples within the [Wiki](https://github.com/Satttoshi/github-wiki-generator/wiki) this Repository!
+Check out the examples within the [Wiki](https://github.com/Satttoshi/github-wiki-generator/wiki) of this repository!
 
 
 ![image](https://github.com/Satttoshi/github-wiki-generator/assets/109807794/6143826a-d58f-421e-83a4-03148dfc22eb)
